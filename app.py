@@ -1,10 +1,11 @@
 from flask import (
     Flask,
+    redirect,
     render_template,
     request as req,
     session,
 )
-from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 import config
 import user
@@ -16,7 +17,7 @@ app.secret_key = config.secret
 
 @app.route("/")
 def index():
-    return "Hello World!"
+    return render_template("index.html")
 
 
 @app.route("/signup")
@@ -38,3 +39,16 @@ def create_user():
         return "User created!"
     else:
         return "Username has been taken!"
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    username = req.form["username"]
+    password = req.form["password"]
+
+    password_hash = user.password_hash(username)
+    if check_password_hash(password_hash, password):
+        session["username"] = username
+        return redirect("/")
+    else:
+        return "Incorrect username or password!"
