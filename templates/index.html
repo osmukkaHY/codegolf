@@ -12,7 +12,9 @@
 <body>
   {% if session.username %}
   <h1>Hello {{ session.username }}!</h1>
-  <p><a href="/logout">Log Out</a></p>
+  <p>
+    <a href="/logout">Log Out</a>
+  </p>
   {% else %}
   <h1>Log In</h1>
   <form action="/login" method="post">
@@ -26,6 +28,9 @@
     </p>
     <input type="submit" value="Log In" />
   </form>
+  <p>
+    Or <a href="/signup">Sign Up</a>
+  </p>
   {% endif %}
 
 </body>
