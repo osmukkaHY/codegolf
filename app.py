@@ -52,3 +52,9 @@ def login():
         return redirect("/")
     else:
         return "Incorrect username or password!"
+
+
+@app.route("/logout")
+def logout():
+    del session["username"]
+    return redirect("/")
