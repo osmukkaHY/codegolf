@@ -12,3 +12,12 @@ def add(conn: sqlite3.Connection, username: str, password_hash: str) -> bool:
     except sqlite3.IntegrityError:
         return False
     return True
+
+
+@db_access
+def password_hash(conn: sqlite3.Connection, username: str) -> str | None:
+    row = conn.execute("""SELECT password_hash
+                          FROM Users
+                          WHERE username = ?
+                       """, (username,)).fetchone()
+    return row["password_hash"] if row else None
