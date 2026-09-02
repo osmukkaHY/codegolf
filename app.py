@@ -2,13 +2,16 @@ from flask import (
     Flask,
     render_template,
     request as req,
+    session,
 )
 from werkzeug.security import generate_password_hash
 
+import config
 import user
 
 
 app = Flask(__name__)
+app.secret_key = config.secret
 
 
 @app.route("/")
