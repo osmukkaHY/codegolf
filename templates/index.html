@@ -12,6 +12,7 @@
 <body>
   {% if session.username %}
   <h1>Hello {{ session.username }}!</h1>
+  <p><a href="/logout">Log Out</a></p>
   {% else %}
   <h1>Log In</h1>
   <form action="/login" method="post">
