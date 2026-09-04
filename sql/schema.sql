@@ -3,3 +3,10 @@ CREATE TABLE Users (
     username      STRING UNIQUE,
     password_hash STRING
 );
+
+CREATE TABLE Posts (
+    id INTEGER PRIMARY KEY,
+    poster_id REFERENCES Users(id),
+    title STRING
+);
+
