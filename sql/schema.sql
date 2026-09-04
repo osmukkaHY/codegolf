@@ -1,12 +1,12 @@
 CREATE TABLE Users (
     id            INTEGER PRIMARY KEY,
-    username      STRING UNIQUE,
-    password_hash STRING
+    username      TEXT UNIQUE,
+    password_hash TEXT
 );
 
 CREATE TABLE Posts (
     id INTEGER PRIMARY KEY,
     poster_id REFERENCES Users(id),
-    title STRING
+    title TEXT
 );
 
