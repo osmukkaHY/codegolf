@@ -16,3 +16,14 @@ def add(conn: sqlite3.Connection,
             return False
         return True
 
+
+@db_access
+def get_n(conn: sqlite3.Connection, count: int) -> tuple[int, int, str, str]:
+    rows = conn.execute("""SELECT Posts.id, poster_id, title, description, username
+                              FROM Posts, Users
+                              WHERE Posts.poster_id = Users.id
+                              ORDER BY Posts.id DESC
+                              LIMIT ?
+                           """, (count,))
+    return rows
+

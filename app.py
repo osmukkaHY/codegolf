@@ -8,6 +8,7 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 import config
+import post
 import user
 
 
@@ -17,7 +18,8 @@ app.secret_key = config.secret
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    posts = post.get_n(4)
+    return render_template("index.html", posts=posts)
 
 
 @app.route("/signup")

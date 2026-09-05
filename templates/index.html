@@ -15,6 +15,16 @@
   <p>
     <a href="/logout">Log Out</a>
   </p>
+  <h2>Recent challenges</h2>
+  <hr />
+  {% for post in posts %}
+  <p>
+    <h3>{{ post.title }}</h3>
+    By: <a href="/users/{{ post.poster_id }}">{{post.username}}</a> <br />
+    <a href="/posts/{{ post.id }}">Show</a>
+    <hr />
+  </p>
+  {% endfor %}
   {% else %}
   <h1>Log In</h1>
   <form action="/login" method="post">
