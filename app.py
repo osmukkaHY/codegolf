@@ -60,3 +60,10 @@ def login():
 def logout():
     del session["username"]
     return redirect("/")
+
+
+@app.route("/posts/<int:post_id>")
+def show_post(post_id: int):
+    post_ = post.get_by_id(post_id)
+    return render_template("single_post.html", post=post_)
+

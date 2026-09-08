@@ -18,7 +18,16 @@ def add(conn: sqlite3.Connection,
 
 
 @db_access
-def get_n(conn: sqlite3.Connection, count: int) -> tuple[int, int, str, str]:
+def get_by_id(conn: sqlite3.Connection, id: int) -> dict | None:
+    row = conn.execute("""SELECT Posts.id, poster_id, title, description, username
+                          FROM Posts, Users
+                          WHERE Users.id = ?
+                       """, (id,)).fetchone()
+    return row
+
+
+@db_access
+def get_n(conn: sqlite3.Connection, count: int) -> dict:
     rows = conn.execute("""SELECT Posts.id, poster_id, title, description, username
                               FROM Posts, Users
                               WHERE Posts.poster_id = Users.id
