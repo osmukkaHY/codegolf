@@ -20,8 +20,8 @@ def add(conn: sqlite3.Connection,
 @db_access
 def get_by_id(conn: sqlite3.Connection, id: int) -> dict | None:
     row = conn.execute("""SELECT Posts.id, poster_id, title, description, username
-                          FROM Posts, Users
-                          WHERE Users.id = ?
+                          FROM Posts JOIN Users ON Users.id = poster_id
+                          WHERE Posts.id = ?
                        """, (id,)).fetchone()
     return row
 

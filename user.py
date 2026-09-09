@@ -21,3 +21,13 @@ def password_hash(conn: sqlite3.Connection, username: str) -> str | None:
                           WHERE username = ?
                        """, (username,)).fetchone()
     return row["password_hash"] if row else None
+
+
+@db_access
+def get_id(conn: sqlite3.Connection, username: str) -> int | None:
+    row = conn.execute("""SELECT id
+                          FROM Users
+                          WHERE username = ?
+                       """, (username,)).fetchone()
+    return row["id"] if row else None
+

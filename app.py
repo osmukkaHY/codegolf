@@ -65,5 +65,15 @@ def logout():
 @app.route("/posts/<int:post_id>")
 def show_post(post_id: int):
     post_ = post.get_by_id(post_id)
+    print(post_)
     return render_template("single_post.html", post=post_)
+
+
+@app.route("/posts/create", methods=["POST"])
+def create_post():
+    poster_id = user.get_id(session["username"])
+    title = req.form["title"]
+    description = req.form["description"]
+    post.add(poster_id, title, description)
+    return redirect("/")
 
