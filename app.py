@@ -77,3 +77,13 @@ def create_post():
     post.add(poster_id, title, description)
     return redirect("/")
 
+
+@app.route("/posts/delete/<int:post_id>")
+def delete_post(post_id: int):
+    post_ = post.get_by_id(post_id)
+    if post_["username"] != session["username"]:
+        return "Forbidden"
+    post.delete(post_id)
+    return redirect("/")
+
+
