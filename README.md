@@ -9,3 +9,12 @@
 
 The main data point is a challenge and the secondary data point is the attempt at golfing one.
 
+# Installation
+1. Run "sqlite3 database.db < sql/schema.sql" to initialize the database.
+2. Run "sqlite3 database.db < sql/populate.sql" to populate the database.
+3. Create a new virtual environment with "python3 -m venv .venv"
+4. Activate the venv with "source venv/bin/activate"
+5. Run "pip install -r requirements.txt" to install project dependencies.
+6. Call "flask run" to launch the server.
+7. Go to "localhost:5000" in a web browser to access the site.
+
