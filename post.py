@@ -51,3 +51,13 @@ def update(conn: sqlite3.Connection, post_id: int, title: str, description: str)
                     WHERE id = ?
                  """, (title, description, post_id))
 
+
+@db_access
+def search(conn: sqlite3.Connection, search_term: str) -> list[sqlite3.Row]:
+    rows = conn.execute("""SELECT Posts.id, poster_id, title, description, username
+                           FROM Posts, Users
+                           WHERE Posts.poster_id = Users.id AND title LIKE ?
+                        ORDER BY Posts.id DESC
+                        """, (f"%{search_term}%",)).fetchall()
+    return rows
+

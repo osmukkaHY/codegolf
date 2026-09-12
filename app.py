@@ -105,3 +105,13 @@ def update_post(post_id: int):
     post.update(post_id, new_title, new_description)
     return redirect(f"/posts/{post_id}")
 
+
+@app.route("/search")
+def search_results():
+    if not req.args:
+        return render_template("search.html", posts=[])
+
+    search_term = req.args["term"]
+    results = post.search(search_term)
+    return render_template("search.html", posts=results)
+
