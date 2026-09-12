@@ -87,3 +87,21 @@ def delete_post(post_id: int):
     return redirect("/")
 
 
+@app.route("/posts/modify/<int:post_id>")
+def modify_post(post_id: int):
+    post_ = post.get_by_id(post_id)
+    if post_["username"] != session["username"]:
+        return "Forbidden"
+    return render_template("modify_post.html", post=post_)
+
+
+@app.route("/posts/update/<int:post_id>", methods=["POST"])
+def update_post(post_id: int):
+    post_ = post.get_by_id(post_id)
+    if post_["username"] != session["username"]:
+        return "Forbidden"
+    new_title = req.form["title"]
+    new_description = req.form["description"]
+    post.update(post_id, new_title, new_description)
+    return redirect(f"/posts/{post_id}")
+
