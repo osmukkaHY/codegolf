@@ -36,3 +36,10 @@ def get_n(conn: sqlite3.Connection, count: int) -> dict:
                            """, (count,))
     return rows
 
+
+@db_access
+def delete(conn: sqlite3.Connection, post_id: int) -> None:
+    conn.execute("""DELETE FROM Posts
+                    WHERE Posts.id = ?
+                 """, (post_id,))
+
