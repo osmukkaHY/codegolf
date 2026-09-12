@@ -23,8 +23,8 @@
     By: <a href="/users/{{ post.poster_id }}">{{post.username}}</a> <br />
     <a href="/posts/{{ post.id }}">Show</a> <br />
     {% if post.username == session.username %}
-    <a href="/delete/{{ post.id }}">Delete</a> | 
-    <a href="/modify/{{ post.id }}">Modify</a>
+    <a href="/posts/delete/{{ post.id }}">Delete</a> | 
+    <a href="/posts/modify/{{ post.id }}">Modify</a>
     {% endif %}
     <hr />
   </p>
