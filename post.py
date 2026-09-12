@@ -40,6 +40,14 @@ def get_n(conn: sqlite3.Connection, count: int) -> dict:
 @db_access
 def delete(conn: sqlite3.Connection, post_id: int) -> None:
     conn.execute("""DELETE FROM Posts
-                    WHERE Posts.id = ?
+                    WHERE id = ?
                  """, (post_id,))
+
+
+@db_access
+def update(conn: sqlite3.Connection, post_id: int, title: str, description: str) -> bool:
+    conn.execute("""UPDATE Posts
+                    SET title = ?, description = ?
+                    WHERE id = ?
+                 """, (title, description, post_id))
 
