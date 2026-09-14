@@ -37,21 +37,7 @@
     <input type="submit" />
   </form>
   {% else %}
-  <h1>Log In</h1>
-  <form action="/login" method="post">
-    <p>
-      Username: <br />
-      <input type="text" name="username" />
-    </p>
-    <p>
-      Password: <br />
-      <input type="password" name="password" />
-    </p>
-    <input type="submit" value="Log In" />
-  </form>
-  <p>
-    Or <a href="/signup">Sign Up</a>
-  </p>
+  <p>You must be Logged In to view content</p>
   {% endif %}
 
 </body>
