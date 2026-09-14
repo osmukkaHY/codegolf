@@ -64,23 +64,26 @@ def login_post():
         return "Incorrect username or password!"
 
 
-@app.route("/logout")
+@app.get("/logout")
 def logout():
     del session["username"]
     return redirect("/")
 
 
-@app.route("/posts/<int:post_id>")
+@app.get("/posts/<int:post_id>")
 def show_post(post_id: int):
     post_ = post.get_by_id(post_id)
     print(post_)
     return render_template("single_post.html", post=post_)
 
 
-@app.route("/posts/create", methods=["GET", "POST"])
+@app.get("/posts/create")
+def posts_create():
+    return render_template("new_challenge.html")
+
+
+@app.post("/posts/create")
 def create_post():
-    if req.method == "GET":
-        return render_template("new_challenge.html")
     poster_id = user.get_id(session["username"])
     title = req.form["title"]
     description = req.form["description"]
@@ -88,7 +91,7 @@ def create_post():
     return redirect("/")
 
 
-@app.route("/posts/delete/<int:post_id>")
+@app.get("/posts/delete/<int:post_id>")
 def delete_post(post_id: int):
     post_ = post.get_by_id(post_id)
     if post_["username"] != session["username"]:
@@ -97,7 +100,7 @@ def delete_post(post_id: int):
     return redirect("/")
 
 
-@app.route("/posts/modify/<int:post_id>")
+@app.get("/posts/modify/<int:post_id>")
 def modify_post(post_id: int):
     post_ = post.get_by_id(post_id)
     if post_["username"] != session["username"]:
@@ -105,7 +108,7 @@ def modify_post(post_id: int):
     return render_template("modify_post.html", post=post_)
 
 
-@app.route("/posts/update/<int:post_id>", methods=["POST"])
+@app.post("/posts/update/<int:post_id>")
 def update_post(post_id: int):
     post_ = post.get_by_id(post_id)
     if post_["username"] != session["username"]:
@@ -116,7 +119,7 @@ def update_post(post_id: int):
     return redirect(f"/posts/{post_id}")
 
 
-@app.route("/search")
+@app.get("/search")
 def search_results():
     if not req.args:
         return render_template("search.html", posts=[])
