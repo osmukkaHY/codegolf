@@ -1,12 +1,12 @@
-<!DOCTYPE HTML>
-<html>
+{% extends "base.html" %}
 
-<head>
-  <title>Sign Up</title>
-</head>
+{% block title %}Sign Up{% endblock %}
 
-<body>
+{% block header %}
   <h1>Sign Up</h1>
+{% endblock %}
+
+{% block content %}
   <form action="/create_user" method="post">
     <p>
       Username: <br />
@@ -22,5 +22,4 @@
     </p>
     <input type="submit" value="Sign Up" />
   </form>
-</body>
-</html>
+{% endblock %}
