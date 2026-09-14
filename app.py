@@ -46,10 +46,14 @@ def create_user():
         return "Username has been taken!"
 
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if req.method == "GET":
-        return render_template("login.html")
+@app.get("/login")
+def login_get():
+    return render_template("login.html")
+
+
+
+@app.post("/login")
+def login_post():
     username = req.form["username"]
     password = req.form["password"]
 
