@@ -1,12 +1,12 @@
-<!DOCTYPE HTML>
-<html>
+{% extends "base.html" %}
 
-<head>
-  <title>Log In</title>
-</head>
+{% block title %}Log In{% endblock %}
 
-<body>
-  <h1>Log In</h1>
+{% block header %}
+  <h2>Log In</h2>
+{% endblock %}
+
+{% block content %}
   <form action="/login" method="post">
     <p>
       Username: <br />
@@ -21,5 +21,4 @@
   <p>
     Or <a href="/signup">Sign Up</a>
   </p>
-</body>
-</html>
+{% endblock %}
