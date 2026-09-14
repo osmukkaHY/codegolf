@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
-<html>
+{% extends "base.html" %}
 
-<head>
-  <title>{{ post.title }}</title>
-</head>
+{% block title %}{{ post.title }}{% endblock %}
 
-<body>
+{% block header %}
   <h1>{{ post.title }}</h1>
+{% endblock %}
+
+{% block content %}
   <h2>By: {{ post.username }}</h2>
   <p>
     {{ post.description }}
   </p>
-</body>
-</html>
+{% endblock %}
