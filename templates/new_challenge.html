@@ -1,18 +1,16 @@
-<!DOCTYPE HTML>
-<html>
+{% extends "base.html" %}
 
-<head>
-  <title>New Challenge</title>
-</head>
+{% block title %}New Challenge{% endblock %}
 
-<body>
+{% block header %}
   <h1>New Challenge</h1>
+{% endblock %}
+
+{% block content %}
   <form action="/posts/create" method="POST">
     Title: <input type="text" name="title" /> <br />
     Description: <br />
     <textarea name="description" rows=32 cols=40></textarea> <br />
     <input type="submit" />
   </form>
-</body>
-
-</html>
+{% endblock %}
