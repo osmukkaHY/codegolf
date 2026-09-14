@@ -24,12 +24,12 @@ def index():
     return render_template("index.html", posts=posts)
 
 
-@app.route("/signup")
+@app.get("/signup")
 def signup():
     return render_template("signup.html")
 
 
-@app.route("/create_user", methods=["POST"])
+@app.post("/create_user")
 def create_user():
     username = req.form["username"]
     password1 = req.form["password1"]
