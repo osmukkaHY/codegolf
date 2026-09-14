@@ -1,10 +1,12 @@
-<html>
+{% extends "base.html" %}
 
-  <head>
-    Search
-  </head>
+{% block title %}Search{% endblock %}
 
-  <body>
+{% block header %}
+  <h1>Search</h1>
+{% endblock %}
+
+{% block content %}
     <form action="/search" method="GET">
       Search: <input type="text" name="term" /> <br />
       <input type="submit" />
@@ -24,6 +26,4 @@
       </p>
       {% endfor %}
     {% endif %}
-  </body>
-
-</html>
+{% endblock %}
