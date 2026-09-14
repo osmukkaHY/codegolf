@@ -18,6 +18,9 @@ app.secret_key = config.secret
 
 @app.route("/")
 def index():
+    if not session.get("username"):
+        print("here")
+        return redirect("/login")
     posts = post.get_n(4)
     return render_template("index.html", posts=posts)
 
@@ -43,8 +46,10 @@ def create_user():
         return "Username has been taken!"
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if req.method == "GET":
+        return render_template("login.html")
     username = req.form["username"]
     password = req.form["password"]
 
