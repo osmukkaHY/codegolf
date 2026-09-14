@@ -1,20 +1,12 @@
-<!DOCTYPE HTML>
-<html>
+{% extends "base.html" %}
 
-<head>
-  {% if session.username %}
-  <title>Main Page</title>
-  {% else %}
-  <title>Log In</title>
-  {% endif %}
-</head>
+{% block title %}Main Page{% endblock %}
 
-<body>
-  {% if session.username %}
-  <h1>Hello {{ session.username }}!</h1>
-  <p>
-    <a href="/logout">Log Out</a> <a href="/search">Search</a>
-  </p>
+{% block header %}
+  <h2>Hello {{ session.username }}</h2>
+{% endblock %}
+
+{% block content %}
   <h2>Recent challenges</h2>
   <hr />
   {% for post in posts %}
@@ -29,11 +21,4 @@
     <hr />
   </p>
   {% endfor %}
-  <a href="/posts/create">New Challenge</a>
-  {% else %}
-  <p>You must be Logged In to view content</p>
-  {% endif %}
-
-</body>
-
-</html>
+{% endblock %}
