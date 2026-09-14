@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+
+<title>{% block title %}{% endblock %}</title>
+
+<nav>
+  <h1>Codegolf</h1>
+  <ul>
+    {% if session.username %}
+      <li><a href="/logout">Log Out</a></li>
+      <li><a href="/search">Search</a></li>
+      <li><a href="/posts/create">New Challenge</a></li>
+    {% else %}
+      <li><a href="/login">Log In</a></li>
+      <li><a href="/signup">Sign Up</a></li>
+    {% endif %}
+  </ul>
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% block content %}{% endblock %}
+</section>
+
+
+</html>
