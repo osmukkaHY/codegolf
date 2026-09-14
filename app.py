@@ -16,10 +16,9 @@ app = Flask(__name__)
 app.secret_key = config.secret
 
 
-@app.route("/")
+@app.get("/")
 def index():
     if not session.get("username"):
-        print("here")
         return redirect("/login")
     posts = post.get_n(4)
     return render_template("index.html", posts=posts)
