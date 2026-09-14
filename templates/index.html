@@ -29,13 +29,7 @@
     <hr />
   </p>
   {% endfor %}
-  <h2>New Challenge</h2>
-  <form action="/posts/create" method="POST">
-    Title: <input type="text" name="title" /> <br />
-    Description: <br />
-    <textarea name="description" rows=32 cols=40></textarea> <br />
-    <input type="submit" />
-  </form>
+  <a href="/posts/create">New Challenge</a>
   {% else %}
   <p>You must be Logged In to view content</p>
   {% endif %}
