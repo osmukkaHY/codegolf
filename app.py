@@ -74,8 +74,10 @@ def show_post(post_id: int):
     return render_template("single_post.html", post=post_)
 
 
-@app.route("/posts/create", methods=["POST"])
+@app.route("/posts/create", methods=["GET", "POST"])
 def create_post():
+    if req.method == "GET":
+        return render_template("new_challenge.html")
     poster_id = user.get_id(session["username"])
     title = req.form["title"]
     description = req.form["description"]
