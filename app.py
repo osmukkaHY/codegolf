@@ -36,13 +36,13 @@ def create_user():
     password2 = req.form["password2"]
 
     if password1 != password2:
-        return "Passwords do not match."
+        return render_template("signup.html", alert="Passwords do not match.")
 
     password_hash = generate_password_hash(password1)
     if user.add(username, password_hash):
-        return "User created!"
+        return render_template("login.html", alert="User created!")
     else:
-        return "Username has been taken!"
+        return render_template("signup.html", alert="Username has been taken!")
 
 
 @app.get("/login")
@@ -57,11 +57,11 @@ def login_post():
     password = req.form["password"]
 
     password_hash = user.password_hash(username)
-    if check_password_hash(password_hash, password):
+    if password_hash is None or not check_password_hash(password_hash, password):
+        return render_template("login.html", alert="Incorrect Credidentials!")
+    else:
         session["username"] = username
         return redirect("/")
-    else:
-        return "Incorrect username or password!"
 
 
 @app.get("/logout")

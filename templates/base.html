@@ -19,6 +19,9 @@
   <header>
     {% block header %}{% endblock %}
   </header>
+  {% if alert %}
+  <p><b>{{ alert }}</b></p>
+  {% endif %}
   {% block content %}{% endblock %}
 </section>
 
