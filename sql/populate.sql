@@ -8,3 +8,7 @@ INSERT INTO Posts (poster_id, title, description) VALUES (2, 'post2', 'this is a
 INSERT INTO Posts (poster_id, title, description) VALUES (3, 'post3', 'this is a post');
 INSERT INTO Posts (poster_id, title, description) VALUES (4, 'post4', 'this is a post');
 
+INSERT INTO Filters (language_name) VALUES ("C");
+INSERT INTO Filters (language_name) VALUES ("C++");
+INSERT INTO Filters (language_name) VALUES ("Python");
+INSERT INTO Filters (language_name) VALUES ("Haskell");
