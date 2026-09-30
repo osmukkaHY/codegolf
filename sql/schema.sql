@@ -11,3 +11,8 @@ CREATE TABLE Posts (
     description TEXT NOT NULL
 );
 
+CREATE TABLE Filters (
+    id INTEGER PRIMARY KEY,
+    language_name TEXT
+);
+
