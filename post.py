@@ -53,11 +53,13 @@ def update(conn: sqlite3.Connection, post_id: int, title: str, description: str)
 
 
 @db_access
-def search(conn: sqlite3.Connection, search_term: str) -> list[sqlite3.Row]:
+def search(conn: sqlite3.Connection, search_term: str, language_filter: str) -> list[sqlite3.Row]:
+    language_filter = "%" if language_filter is "" else language_filter
     rows = conn.execute("""SELECT Posts.id, poster_id, title, description, username
                            FROM Posts, Users
-                           WHERE Posts.poster_id = Users.id AND title LIKE ?
+                           JOIN Filters ON Posts.language_name = Filters.id
+                           WHERE Posts.poster_id = Users.id AND title LIKE ? AND Filters.language_name LIKE ?
                         ORDER BY Posts.id DESC
-                        """, (f"%{search_term}%",)).fetchall()
+                        """, (f"%{search_term}%", language_filter)).fetchall()
     return rows
 

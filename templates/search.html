@@ -8,7 +8,13 @@
 
 {% block content %}
     <form action="/search" method="GET">
-      Search: <input type="text" name="term" /> <br />
+      Search: <input type="text" name="term" />
+      Language: <select name="language">
+        <option value="">All</option>
+        {% for language in languages %}
+          <option value="{{ language }}">{{ language }}</option>
+        {% endfor %}
+      </select>
       <input type="submit" />
     </form>
     {% if posts %}

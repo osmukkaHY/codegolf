@@ -10,6 +10,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import config
 import post
 import user
+import filter
 
 
 app = Flask(__name__)
@@ -79,7 +80,7 @@ def show_post(post_id: int):
 
 @app.get("/posts/create")
 def posts_create():
-    return render_template("new_challenge.html")
+    return render_template("new_challenge.html", languages=filter.languages())
 
 
 @app.post("/posts/create")
@@ -122,9 +123,10 @@ def update_post(post_id: int):
 @app.get("/search")
 def search_results():
     if not req.args:
-        return render_template("search.html", posts=[])
+        return render_template("search.html", languages=filter.languages(), posts=[])
 
     search_term = req.args["term"]
-    results = post.search(search_term)
-    return render_template("search.html", posts=results)
+    language_filter = req.args.get("language")
+    results = post.search(search_term, language_filter)
+    return render_template("search.html", languages=filter.languages(), posts=results)
 
