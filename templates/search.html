@@ -15,6 +15,12 @@
           <option value="{{ language }}">{{ language }}</option>
         {% endfor %}
       </select>
+      Category: <select name="category">
+        <option value="">All</option>
+        {% for category in categories %}
+          <option value="{{ category }}">{{ category }}</option>
+        {% endfor %}
+      </select>
       <input type="submit" />
     </form>
     {% if posts %}

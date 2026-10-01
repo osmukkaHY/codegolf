@@ -8,12 +8,17 @@ CREATE TABLE Posts (
     id          INTEGER PRIMARY KEY,
     poster_id   REFERENCES Users(id) NOT NULL,
     title       TEXT NOT NULL,
-    language_name TEXT REFERENCES Filters(id),
+    language_name TEXT REFERENCES LanguageFilters(id),
+    category_name TEXT REFERENCES CategoryFilters(id),
     description TEXT NOT NULL
 );
 
-CREATE TABLE Filters (
+CREATE TABLE LanguageFilters (
     id INTEGER PRIMARY KEY,
     language_name TEXT
 );
 
+CREATE TABLE CategoryFilters (
+    id INTEGER PRIMARY KEY,
+    category_name TEXT
+);

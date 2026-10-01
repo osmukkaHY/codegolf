@@ -122,11 +122,12 @@ def update_post(post_id: int):
 
 @app.get("/search")
 def search_results():
-    if not req.args:
-        return render_template("search.html", languages=filter.languages(), posts=[])
+    results = []
+    if req.args:
+        search_term = req.args["term"]
+        language_filter = req.args.get("language")
+        category_filter = req.args.get("category")
+        results = post.search(search_term, language_filter, category_filter)
 
-    search_term = req.args["term"]
-    language_filter = req.args.get("language")
-    results = post.search(search_term, language_filter)
-    return render_template("search.html", languages=filter.languages(), posts=results)
+    return render_template("search.html", languages=filter.languages(), categories=filter.categories(), posts=results)
 
