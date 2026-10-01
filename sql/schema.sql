@@ -8,6 +8,7 @@ CREATE TABLE Posts (
     id          INTEGER PRIMARY KEY,
     poster_id   REFERENCES Users(id) NOT NULL,
     title       TEXT NOT NULL,
+    language_name TEXT REFERENCES Filters(id),
     description TEXT NOT NULL
 );
 
