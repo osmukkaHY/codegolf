@@ -9,10 +9,16 @@
 {% block content %}
   <form action="/posts/create" method="POST">
     Title: <input type="text" name="title" />
-    Language: <select>
+    Language: <select name="language">
       <option value=""selected disabled hidden>Select...</option>
       {% for language in languages %}
         <option value="{{ language }}">{{ language }}</option>
+      {% endfor %}
+    </select>
+    Categories: <select name="category">
+      <option value=""selected disabled hidden>Select...</option>
+      {% for category in categories %}
+        <option value="{{ category }}">{{ category }}</option>
       {% endfor %}
     </select> <br />
     Description: <br />

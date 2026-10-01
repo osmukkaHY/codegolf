@@ -7,12 +7,15 @@ from db import db_access
 def add(conn: sqlite3.Connection,
         user_id: int,
         title: str,
+        language_id: int,
+        category_id: int,
         description: str) -> bool:
         try:
-            conn.execute("""INSERT INTO Posts (poster_id, title, description)
-                            VALUES (?, ?, ?)
-                         """, (user_id, title, description))
-        except sqlite3.IntegrityError:
+            conn.execute("""INSERT INTO Posts (poster_id, title, language_name, category_name, description)
+                            VALUES (?, ?, ?, ?, ?)
+                         """, (user_id, title, language_id, category_id, description))
+        except sqlite3.IntegrityError as e:
+            print(e)
             return False
         return True
 
@@ -54,8 +57,8 @@ def update(conn: sqlite3.Connection, post_id: int, title: str, description: str)
 
 @db_access
 def search(conn: sqlite3.Connection, search_term: str, language_filter: str, category_filter: str) -> list[sqlite3.Row]:
-    language_filter = "%" if language_filter is "" else language_filter
-    category_filter = "%" if category_filter is "" else category_filter
+    language_filter = "%" if language_filter == "" else language_filter
+    category_filter = "%" if category_filter == "" else category_filter
     rows = conn.execute("""SELECT Posts.id, poster_id, title, description, username
                            FROM Posts, Users
                            JOIN LanguageFilters ON Posts.language_name = LanguageFilters.id

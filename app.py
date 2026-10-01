@@ -80,15 +80,17 @@ def show_post(post_id: int):
 
 @app.get("/posts/create")
 def posts_create():
-    return render_template("new_challenge.html", languages=filter.languages())
+    return render_template("new_challenge.html", languages=filter.languages(), categories=filter.categories())
 
 
 @app.post("/posts/create")
 def create_post():
     poster_id = user.get_id(session["username"])
     title = req.form["title"]
+    language_id = filter.get_language_id(req.form.get("language"))
+    category_id = filter.get_category_id(req.form.get("category"))
     description = req.form["description"]
-    post.add(poster_id, title, description)
+    post.add(poster_id, title, language_id, category_id, description)
     return redirect("/")
 
 
