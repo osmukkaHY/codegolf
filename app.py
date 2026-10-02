@@ -94,7 +94,8 @@ def logout():
 @login_required
 def show_post(post_id: int):
     post_ = post.get_by_id(post_id)
-    print(post_)
+    if not post_:
+        abort(404)
     return render_template("single_post.html", post=post_)
 
 
