@@ -7,6 +7,7 @@ from flask import (
     session,
 )
 from functools import wraps
+import secrets
 from werkzeug.security import check_password_hash, generate_password_hash
 
 import config
@@ -24,6 +25,15 @@ def login_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
         if not session.get("username"):
+            abort(403)
+        return f(*args, **kwargs)
+    return wrapper
+
+
+def check_csrf(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if session["csrf_token"] != req.form["csrf_token"]:
             abort(403)
         return f(*args, **kwargs)
     return wrapper
@@ -80,6 +90,7 @@ def login_post():
         return render_template("login.html", alert="Incorrect Credidentials!")
     else:
         session["username"] = username
+        session["csrf_token"] = secrets.token_hex(16)
         return redirect("/")
 
 
@@ -107,6 +118,7 @@ def posts_create():
 
 @app.post("/posts/create")
 @login_required
+@check_csrf
 def create_post():
     poster_id = user.get_id(session["username"])
 
@@ -157,6 +169,7 @@ def modify_post(post_id: int):
 
 @app.post("/posts/update/<int:post_id>")
 @login_required
+@check_csrf
 def update_post(post_id: int):
     post_ = post.get_by_id(post_id)
     if post_["username"] != session["username"]:
