@@ -22,3 +22,21 @@ def validate_passwords(pwd1: str, pwd2: str) -> str:
         return "Password must be at least 4 characters long."
 
     return ""
+
+
+def validate_post_title(title: str) -> str:
+    if not len(title):
+        return "Title cannot be empty."
+    if len(title) > 128:
+        return "Title is too long."
+
+    return ""
+
+
+def validate_post_description(desc: str) -> str:
+    if not len(desc):
+        return "Description cannot be empty."
+    if len(desc) > 2_048:
+        return "Description is too long."
+
+    return ""

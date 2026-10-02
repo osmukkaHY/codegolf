@@ -8,7 +8,7 @@
 
 {% block content %}
   <form action="/posts/create" method="POST">
-    Title: <input type="text" name="title" />
+    Title: <input type="text" name="title" maxlength=128 />
     Language: <select name="language">
       <option value=""selected disabled hidden>Select...</option>
       {% for language in languages %}
@@ -22,7 +22,7 @@
       {% endfor %}
     </select> <br />
     Description: <br />
-    <textarea name="description" rows=32 cols=40></textarea> <br />
+    <textarea name="description" rows=32 cols=40 maxlength=2048></textarea> <br />
     <input type="submit" />
   </form>
 {% endblock %}

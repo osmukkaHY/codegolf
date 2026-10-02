@@ -109,10 +109,29 @@ def posts_create():
 @login_required
 def create_post():
     poster_id = user.get_id(session["username"])
+
     title = req.form["title"]
+    if(error := utils.validate_post_title(title)):
+        return render_template("new_challenge.html",
+                               languages=filter.languages(),
+                               categories=filter.categories(),
+                               alert=error)
+
+    description = req.form["description"]
+    if(error := utils.validate_post_description(description)):
+        return render_template("new_challenge.html",
+                               languages=filter.languages(),
+                               categories=filter.categories(),
+                               alert=error)
+
     language_id = filter.get_language_id(req.form.get("language"))
     category_id = filter.get_category_id(req.form.get("category"))
-    description = req.form["description"]
+    if not language_id or not category_id:
+        return render_template("new_challenge.html",
+                               languages=filter.languages(),
+                               categories=filter.categories(),
+                               alert="Please provide a language and a category.")
+
     post.add(poster_id, title, language_id, category_id, description)
     return redirect("/")
 
