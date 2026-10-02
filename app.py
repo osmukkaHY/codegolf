@@ -6,6 +6,7 @@ from flask import (
     request as req,
     session,
 )
+from functools import wraps
 from werkzeug.security import check_password_hash, generate_password_hash
 
 import config
@@ -17,6 +18,15 @@ import utils
 
 app = Flask(__name__)
 app.secret_key = config.secret
+
+
+def login_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if not session.get("username"):
+            abort(403)
+        return f(*args, **kwargs)
+    return wrapper
 
 
 @app.get("/")
@@ -62,9 +72,6 @@ def login_get():
 
 @app.post("/login")
 def login_post():
-    if not session.get("username"):
-        abort(403)
-
     username = req.form["username"]
     password = req.form["password"]
 
@@ -84,26 +91,22 @@ def logout():
 
 
 @app.get("/posts/<int:post_id>")
+@login_required
 def show_post(post_id: int):
-    if not session.get("username"):
-        abort(403)
     post_ = post.get_by_id(post_id)
     print(post_)
     return render_template("single_post.html", post=post_)
 
 
 @app.get("/posts/create")
+@login_required
 def posts_create():
-    if not session.get("username"):
-        abort(403)
     return render_template("new_challenge.html", languages=filter.languages(), categories=filter.categories())
 
 
 @app.post("/posts/create")
+@login_required
 def create_post():
-    if not session.get("username"):
-        abort(403)
-
     poster_id = user.get_id(session["username"])
     title = req.form["title"]
     language_id = filter.get_language_id(req.form.get("language"))
@@ -114,9 +117,8 @@ def create_post():
 
 
 @app.get("/posts/delete/<int:post_id>")
+@login_required
 def delete_post(post_id: int):
-    if not session.get("username"):
-        abort(403)
     post_ = post.get_by_id(post_id)
     if post_["username"] != session["username"]:
         abort(403)
@@ -125,9 +127,8 @@ def delete_post(post_id: int):
 
 
 @app.get("/posts/modify/<int:post_id>")
+@login_required
 def modify_post(post_id: int):
-    if not session.get("username"):
-        abort(403)
     post_ = post.get_by_id(post_id)
     if post_["username"] != session["username"]:
         abort(403)
@@ -135,9 +136,8 @@ def modify_post(post_id: int):
 
 
 @app.post("/posts/update/<int:post_id>")
+@login_required
 def update_post(post_id: int):
-    if not session.get("username"):
-        abort(403)
     post_ = post.get_by_id(post_id)
     if post_["username"] != session["username"]:
         abort(403)
@@ -148,9 +148,8 @@ def update_post(post_id: int):
 
 
 @app.get("/search")
+@login_required
 def search_results():
-    if not session.get("username"):
-        abort(403)
     results = []
     if req.args:
         search_term = req.args["term"]
