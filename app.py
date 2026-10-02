@@ -1,4 +1,5 @@
 from flask import (
+    abort,
     Flask,
     redirect,
     render_template,
@@ -28,6 +29,8 @@ def index():
 
 @app.get("/signup")
 def signup():
+    if session.get("username"):
+        abort(403)
     return render_template("signup.html")
 
 
@@ -51,12 +54,17 @@ def create_user():
 
 @app.get("/login")
 def login_get():
+    if session.get("username"):
+        abort(403)
     return render_template("login.html")
 
 
 
 @app.post("/login")
 def login_post():
+    if not session.get("username"):
+        abort(403)
+
     username = req.form["username"]
     password = req.form["password"]
 
@@ -70,12 +78,15 @@ def login_post():
 
 @app.get("/logout")
 def logout():
-    del session["username"]
+    if session.get("username"):
+        del session["username"]
     return redirect("/")
 
 
 @app.get("/posts/<int:post_id>")
 def show_post(post_id: int):
+    if not session.get("username"):
+        abort(403)
     post_ = post.get_by_id(post_id)
     print(post_)
     return render_template("single_post.html", post=post_)
@@ -83,11 +94,16 @@ def show_post(post_id: int):
 
 @app.get("/posts/create")
 def posts_create():
+    if not session.get("username"):
+        abort(403)
     return render_template("new_challenge.html", languages=filter.languages(), categories=filter.categories())
 
 
 @app.post("/posts/create")
 def create_post():
+    if not session.get("username"):
+        abort(403)
+
     poster_id = user.get_id(session["username"])
     title = req.form["title"]
     language_id = filter.get_language_id(req.form.get("language"))
@@ -99,26 +115,32 @@ def create_post():
 
 @app.get("/posts/delete/<int:post_id>")
 def delete_post(post_id: int):
+    if not session.get("username"):
+        abort(403)
     post_ = post.get_by_id(post_id)
     if post_["username"] != session["username"]:
-        return "Forbidden"
+        abort(403)
     post.delete(post_id)
     return redirect("/")
 
 
 @app.get("/posts/modify/<int:post_id>")
 def modify_post(post_id: int):
+    if not session.get("username"):
+        abort(403)
     post_ = post.get_by_id(post_id)
     if post_["username"] != session["username"]:
-        return "Forbidden"
+        abort(403)
     return render_template("modify_post.html", post=post_)
 
 
 @app.post("/posts/update/<int:post_id>")
 def update_post(post_id: int):
+    if not session.get("username"):
+        abort(403)
     post_ = post.get_by_id(post_id)
     if post_["username"] != session["username"]:
-        return "Forbidden"
+        abort(403)
     new_title = req.form["title"]
     new_description = req.form["description"]
     post.update(post_id, new_title, new_description)
@@ -127,6 +149,8 @@ def update_post(post_id: int):
 
 @app.get("/search")
 def search_results():
+    if not session.get("username"):
+        abort(403)
     results = []
     if req.args:
         search_term = req.args["term"]
