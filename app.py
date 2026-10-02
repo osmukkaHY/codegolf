@@ -11,6 +11,7 @@ import config
 import post
 import user
 import filter
+import utils
 
 
 app = Flask(__name__)
@@ -33,17 +34,19 @@ def signup():
 @app.post("/create_user")
 def create_user():
     username = req.form["username"]
+    if (error := utils.validate_username(username)):
+        return render_template("signup.html", alert=error)
+    elif user.exists(username):
+        return render_template("signup.html", alert="Username has been taken.")
+
     password1 = req.form["password1"]
     password2 = req.form["password2"]
-
-    if password1 != password2:
-        return render_template("signup.html", alert="Passwords do not match.")
+    if (error := utils.validate_passwords(password1, password2)):
+        return render_template("signup.html", alert=error)
 
     password_hash = generate_password_hash(password1)
-    if user.add(username, password_hash):
-        return render_template("login.html", alert="User created!")
-    else:
-        return render_template("signup.html", alert="Username has been taken!")
+    user.add(username, password_hash)
+    return render_template("login.html", alert="User created!")
 
 
 @app.get("/login")

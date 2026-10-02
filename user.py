@@ -15,6 +15,15 @@ def add(conn: sqlite3.Connection, username: str, password_hash: str) -> bool:
 
 
 @db_access
+def exists(conn: sqlite3.Connection, username) -> bool:
+    row = conn.execute("""SELECT COUNT(*) AS exist
+                          FROM Users
+                          WHERE username = ?
+                       """, (username,)).fetchone()
+    return bool(row["exist"])
+
+
+@db_access
 def password_hash(conn: sqlite3.Connection, username: str) -> str | None:
     row = conn.execute("""SELECT password_hash
                           FROM Users
