@@ -1,0 +1,9 @@
+#!/bin/bash
+
+rm database.db
+echo "Removed database"
+sqlite3 database.db < sql/schema.sql
+echo "Created database"
+sqlite3 database.db < sql/populate.sql
+echo "Populated database"
+
