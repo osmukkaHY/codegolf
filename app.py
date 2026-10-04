@@ -192,3 +192,16 @@ def search_results():
 
     return render_template("search.html", languages=filter.languages(), categories=filter.categories(), posts=results)
 
+
+@app.get("/users/<int:user_id>")
+@login_required
+def profile_get(user_id: int):
+    u = user.get_by_id(user_id)
+
+    categorized_posts = {}
+    for p in post.get_by_user_id(user_id):
+        if p["language_name"] not in categorized_posts:
+            categorized_posts[p["language_name"]] = []
+        categorized_posts[p["language_name"]].append(p)
+
+    return render_template("profile.html", user=u, posts=categorized_posts)

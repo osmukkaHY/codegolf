@@ -17,10 +17,13 @@ def get_language_id(conn: sqlite3.Connection, language: str) -> int | None:
     return row["id"]
 
 
+
+
 @db_access
 def categories(conn: sqlite3.Connection) -> list[str]:
     rows = conn.execute("SELECT category_name FROM CategoryFilters").fetchall()
     return [row["category_name"] for row in rows]
+
 
 @db_access
 def get_category_id(conn: sqlite3.Connection, category: str) -> int | None:

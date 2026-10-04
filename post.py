@@ -30,6 +30,17 @@ def get_by_id(conn: sqlite3.Connection, id: int) -> dict | None:
 
 
 @db_access
+def get_by_user_id(conn: sqlite3.Connection, user_id: int) -> list[dict]:
+    rows = conn.execute("""SELECT P.id, poster_id, title, L.language_name, C.category_name, description
+                           FROM Posts P
+                           JOIN LanguageFilters L ON P.language_name = L.id
+                           JOIN CategoryFilters C ON P.category_name = C.id
+                           WHERE poster_id = ?
+                        """, (user_id,)).fetchall()
+    return rows
+
+
+@db_access
 def get_n(conn: sqlite3.Connection, count: int) -> dict:
     rows = conn.execute("""SELECT Posts.id, poster_id, title, description, username
                               FROM Posts, Users

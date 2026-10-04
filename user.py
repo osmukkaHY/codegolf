@@ -24,6 +24,15 @@ def exists(conn: sqlite3.Connection, username) -> bool:
 
 
 @db_access
+def get_by_id(conn: sqlite3.Connection, user_id: int) -> str | None:
+    row = conn.execute("""SELECT id, username
+                          FROM Users
+                          WHERE id = ?
+                       """, (user_id,)).fetchone()
+    return row if row else None
+
+
+@db_access
 def password_hash(conn: sqlite3.Connection, username: str) -> str | None:
     row = conn.execute("""SELECT password_hash
                           FROM Users

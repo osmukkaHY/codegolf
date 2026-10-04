@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block header %}
+  <h1>Profile of {{ user.username }}</h1>
+{% endblock %}
+
+{% block content %}
+  {% for language, post_list in posts.items() %}
+    <h2>Posts in {{ language }}</h2>
+    <hr />
+    {% for post in post_list %}
+      <p>
+        <h3>Title: {{ post.title }}</h3>
+        <a href="/posts/{{ post.id }}">Show</a> <br />
+        {% if post.username == session.username %}
+        <a href="/posts/delete/{{ post.id }}">Delete</a> | 
+        <a href="/posts/modify/{{ post.id }}">Modify</a>
+        {% endif %}
+        <hr />
+      </p>
+    {% endfor %}
+  {% endfor %}
+{% endblock %}
