@@ -13,6 +13,13 @@ CREATE TABLE Posts (
     description TEXT NOT NULL
 );
 
+CREATE TABLE Comments (
+    id           INTEGER PRIMARY KEY,
+    commenter_id INTEGER REFERENCES Users(id),
+    post_id      INTEGER REFERENCES Posts(id),
+    content      TEXT    NOT NULL    
+);
+
 CREATE TABLE LanguageFilters (
     id INTEGER PRIMARY KEY,
     language_name TEXT

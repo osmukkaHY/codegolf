@@ -11,6 +11,7 @@ import secrets
 from werkzeug.security import check_password_hash, generate_password_hash
 
 import config
+import comment
 import post
 import user
 import filter
@@ -107,7 +108,8 @@ def show_post(post_id: int):
     post_ = post.get_by_id(post_id)
     if not post_:
         abort(404)
-    return render_template("single_post.html", post=post_)
+    comments = comment.get_by_post(post_id)
+    return render_template("single_post.html", post=post_, attempts=comments)
 
 
 @app.get("/posts/create")
@@ -205,3 +207,18 @@ def profile_get(user_id: int):
         categorized_posts[p["language_name"]].append(p)
 
     return render_template("profile.html", user=u, posts=categorized_posts)
+
+
+@app.post("/attempts/create")
+@login_required
+@check_csrf
+def attempts_post():
+    username = session["username"]
+    post_id = req.form["post_id"]
+    commenter_id = user.get_id(username)
+    content = req.form["attempt"]
+    if not len(content):
+        abort(403)
+
+    comment.add(post_id, commenter_id, content)
+    return redirect(f"/posts/{post_id}")

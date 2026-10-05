@@ -11,4 +11,23 @@
   <p>
     {{ post.description }}
   </p>
+
+
+  {% if post.username != session.username %}
+    <h2>Attempt</h2>
+    <form action="/attempts/create" method="POST">
+      <textarea name="attempt" rows=32 columns=80 maxlength=1028></textarea> <br />
+      <input type="submit" />
+      <input type="hidden" name="post_id" value="{{ post.id }}" />
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+    </form>
+  {% endif %}
+  <hr />
+  {% for attempt in attempts %}
+    <p>
+      <h3>By: {{ attempt.commenter }}</h3>
+      {{ attempt.content }}
+    </p>
+    <hr />
+  {% endfor %}
 {% endblock %}
