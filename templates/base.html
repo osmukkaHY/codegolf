@@ -6,6 +6,7 @@
   <h4><a href="/">Codegolf</a></h4>
   <ul>
     {% if session.username %}
+      <li><a href="/users/{{ session.user_id }}">Your Profile</a></li>
       <li><a href="/logout">Log Out</a></li>
       <li><a href="/search">Search</a></li>
       <li><a href="/posts/create">New Challenge</a></li>

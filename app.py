@@ -91,14 +91,19 @@ def login_post():
         return render_template("login.html", alert="Incorrect Credidentials!")
     else:
         session["username"] = username
+        user_id = user.get_id(username)
+        session["user_id"] = user_id
         session["csrf_token"] = secrets.token_hex(16)
         return redirect("/")
 
 
 @app.get("/logout")
+@login_required
 def logout():
     if session.get("username"):
         del session["username"]
+        del session["user_id"]
+        del session["csrf_token"]
     return redirect("/")
 
 
