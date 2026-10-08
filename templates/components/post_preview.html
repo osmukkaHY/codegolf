@@ -1,0 +1,11 @@
+{% macro postPreview(id, poster_id, title, poster_username) %}
+  <div>
+    <h3>{{ title }}</h3>
+    By: <a href="/users/{{ poster_id }}">{{ poster_username }}</a> <br />
+    <a href="/posts/{{ id }}">Show</a> <br />
+    {% if poster_username == session.username %}
+    <a href="/posts/delete/{{ id }}">Delete</a> | 
+    <a href="/posts/modify/{{ id }}">Modify</a>
+    {% endif %}
+  </div>
+{% endmacro %}
