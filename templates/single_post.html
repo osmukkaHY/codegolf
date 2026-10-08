@@ -11,6 +11,10 @@
   <p>
     {{ post.description }}
   </p>
+  <p>
+    Language: {{ language }} <br />
+    Category: {{ category }}
+  </p>
 
 
   {% if post.username != session.username %}
@@ -22,6 +26,7 @@
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     </form>
   {% endif %}
+  <h2>Attempts</h2>
   <hr />
   {% for attempt in attempts %}
     <p>
