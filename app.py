@@ -120,7 +120,7 @@ def show_post(post_id: int):
 @app.get("/posts/create")
 @login_required
 def posts_create():
-    return render_template("new_challenge.html",
+    return render_template("post_form.html",
                            title_prefill="",
                            description_prefill="",
                            languages=filter.languages(),
@@ -148,7 +148,7 @@ def create_post():
         errors.append("Please provide a language and a category.")
 
     if errors:
-        return render_template("new_challenge.html",
+        return render_template("post_form.html",
                            title_prefill=title,
                            description_prefill=description,
                            languages=filter.languages(),
