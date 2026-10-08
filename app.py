@@ -120,7 +120,11 @@ def show_post(post_id: int):
 @app.get("/posts/create")
 @login_required
 def posts_create():
-    return render_template("new_challenge.html", languages=filter.languages(), categories=filter.categories())
+    return render_template("new_challenge.html",
+                           title_prefill="",
+                           description_prefill="",
+                           languages=filter.languages(),
+                           categories=filter.categories())
 
 
 @app.post("/posts/create")
@@ -128,28 +132,28 @@ def posts_create():
 @check_csrf
 def create_post():
     poster_id = user.get_id(session["username"])
-
     title = req.form["title"]
-    if(error := utils.validate_post_title(title)):
-        return render_template("new_challenge.html",
-                               languages=filter.languages(),
-                               categories=filter.categories(),
-                               alert=error)
-
     description = req.form["description"]
-    if(error := utils.validate_post_description(description)):
-        return render_template("new_challenge.html",
-                               languages=filter.languages(),
-                               categories=filter.categories(),
-                               alert=error)
-
     language_id = filter.get_language_id(req.form.get("language"))
     category_id = filter.get_category_id(req.form.get("category"))
+
+    errors = []
+    if(error := utils.validate_post_title(title)):
+        errors.append(error)
+
+    if(error := utils.validate_post_description(description)):
+        errors.append(error)
+
     if not language_id or not category_id:
+        errors.append("Please provide a language and a category.")
+
+    if errors:
         return render_template("new_challenge.html",
-                               languages=filter.languages(),
-                               categories=filter.categories(),
-                               alert="Please provide a language and a category.")
+                           title_prefill=title,
+                           description_prefill=description,
+                           languages=filter.languages(),
+                           categories=filter.categories(),
+                           alert=errors)
 
     post.add(poster_id, title, language_id, category_id, description)
     return redirect("/")
