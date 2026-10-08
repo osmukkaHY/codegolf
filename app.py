@@ -77,7 +77,7 @@ def create_user():
 def login_get():
     if session.get("username"):
         abort(403)
-    return render_template("login.html")
+    return render_template("login.html", username_prefill="")
 
 
 
@@ -88,7 +88,7 @@ def login_post():
 
     password_hash = user.password_hash(username)
     if password_hash is None or not check_password_hash(password_hash, password):
-        return render_template("login.html", alert="Incorrect Credidentials!")
+        return render_template("login.html", username_prefill=username, alert="Incorrect Credidentials!")
     else:
         session["username"] = username
         user_id = user.get_id(username)
