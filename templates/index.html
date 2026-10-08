@@ -1,3 +1,4 @@
+{% from "components/post_preview.html" import postPreview %}
 {% extends "base.html" %}
 
 {% block title %}Main Page{% endblock %}
@@ -11,13 +12,7 @@
   <hr />
   {% for post in posts %}
   <p>
-    <h3>{{ post.title }}</h3>
-    By: <a href="/users/{{ post.poster_id }}">{{post.username}}</a> <br />
-    <a href="/posts/{{ post.id }}">Show</a> <br />
-    {% if post.username == session.username %}
-    <a href="/posts/delete/{{ post.id }}">Delete</a> | 
-    <a href="/posts/modify/{{ post.id }}">Modify</a>
-    {% endif %}
+    {{ postPreview(post.id, post.poster_id, post.title, post.username) }}
     <hr />
   </p>
   {% endfor %}
