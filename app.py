@@ -52,16 +52,16 @@ def index():
 def signup():
     if session.get("username"):
         abort(403)
-    return render_template("signup.html")
+    return render_template("signup.html", username_prefill="")
 
 
 @app.post("/create_user")
 def create_user():
     username = req.form["username"]
     if (error := utils.validate_username(username)):
-        return render_template("signup.html", alert=error)
+        return render_template("signup.html", username_prefill=username, alert=error)
     elif user.exists(username):
-        return render_template("signup.html", alert="Username has been taken.")
+        return render_template("signup.html", username_prefill=username, alert="Username has been taken.")
 
     password1 = req.form["password1"]
     password2 = req.form["password2"]
