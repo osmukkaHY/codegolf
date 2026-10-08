@@ -122,6 +122,8 @@ def show_post(post_id: int):
 def posts_create():
     return render_template("post_form.html",
                            title_prefill="",
+                           language_prefill="",
+                           category_prefill="",
                            description_prefill="",
                            languages=filter.languages(),
                            categories=filter.categories())
@@ -150,6 +152,8 @@ def create_post():
     if errors:
         return render_template("post_form.html",
                            title_prefill=title,
+                           language_prefill=req.form.get("language"),
+                           category_prefill=req.form.get("category"),
                            description_prefill=description,
                            languages=filter.languages(),
                            categories=filter.categories(),

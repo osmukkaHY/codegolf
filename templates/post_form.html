@@ -10,15 +10,27 @@
   <form action="/posts/create" method="POST">
     Title: <input type="text" name="title" maxlength=128 value="{{ title_prefill }}" />
     Language: <select name="language">
-      <option value=""selected disabled hidden>Select...</option>
+      {% if not language_prefill %}
+        <option value="" selected disabled hidden>Select...</option>
+      {% endif %}
       {% for language in languages %}
-        <option value="{{ language }}">{{ language }}</option>
+        {% if language == language_prefill %}
+          <option value="{{ language }}" selected >{{ language }}</option>
+        {% else %}
+          <option value="{{ language }}">{{ language }}</option>
+        {% endif %}
       {% endfor %}
     </select>
     Categories: <select name="category">
-      <option value=""selected disabled hidden>Select...</option>
+      {% if not category_prefill %}
+        <option value=""selected disabled hidden>Select...</option>
+      {% endif %}
       {% for category in categories %}
-        <option value="{{ category }}">{{ category }}</option>
+        {% if category == category_prefill %}
+          <option value="{{ category }}" selected>{{ category }}</option>
+        {% else %}
+          <option value="{{ category }}">{{ category }}</option>
+        {% endif %}
       {% endfor %}
     </select> <br />
     Description: <br />
