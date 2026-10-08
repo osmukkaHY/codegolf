@@ -22,7 +22,7 @@ def add(conn: sqlite3.Connection,
 
 @db_access
 def get_by_id(conn: sqlite3.Connection, id: int) -> dict | None:
-    row = conn.execute("""SELECT Posts.id, poster_id, title, description, username
+    row = conn.execute("""SELECT Posts.id, poster_id, title, language_name, category_name, description, username
                           FROM Posts JOIN Users ON Users.id = poster_id
                           WHERE Posts.id = ?
                        """, (id,)).fetchone()
@@ -59,11 +59,11 @@ def delete(conn: sqlite3.Connection, post_id: int) -> None:
 
 
 @db_access
-def update(conn: sqlite3.Connection, post_id: int, title: str, description: str) -> bool:
+def update(conn: sqlite3.Connection, post_id: int, title: str, language: int, category: id, description: str) -> bool:
     conn.execute("""UPDATE Posts
-                    SET title = ?, description = ?
+                    SET title = ?, language_name = ?, category_name = ?, description = ?
                     WHERE id = ?
-                 """, (title, description, post_id))
+                 """, (title, language, category, description, post_id))
 
 
 @db_access

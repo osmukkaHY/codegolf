@@ -113,14 +113,21 @@ def show_post(post_id: int):
     post_ = post.get_by_id(post_id)
     if not post_:
         abort(404)
+    language = filter.get_language(post_["language_name"])
+    category = filter.get_category(post_["category_name"])
     comments = comment.get_by_post(post_id)
-    return render_template("single_post.html", post=post_, attempts=comments)
+    return render_template("single_post.html",
+                           post=post_,
+                           language=language,
+                           category=category,
+                           attempts=comments)
 
 
 @app.get("/posts/create")
 @login_required
 def posts_create():
     return render_template("post_form.html",
+                           modify=True,
                            title_prefill="",
                            language_prefill="",
                            category_prefill="",
@@ -151,13 +158,14 @@ def create_post():
 
     if errors:
         return render_template("post_form.html",
-                           title_prefill=title,
-                           language_prefill=req.form.get("language"),
-                           category_prefill=req.form.get("category"),
-                           description_prefill=description,
-                           languages=filter.languages(),
-                           categories=filter.categories(),
-                           alert=errors)
+                               modify=False,
+                               title_prefill=title,
+                               language_prefill=req.form.get("language"),
+                               category_prefill=req.form.get("category"),
+                               description_prefill=description,
+                               languages=filter.languages(),
+                               categories=filter.categories(),
+                               alert=errors)
 
     post.add(poster_id, title, language_id, category_id, description)
     return redirect("/")
@@ -179,7 +187,18 @@ def modify_post(post_id: int):
     post_ = post.get_by_id(post_id)
     if post_["username"] != session["username"]:
         abort(403)
-    return render_template("modify_post.html", post=post_)
+    language = filter.get_language(post_["language_name"])
+    category = filter.get_language(post_["category_name"])
+    return render_template("post_form.html",
+                           post_id=post_id, 
+                           modify=True,
+                           title_prefill=post_["title"],
+                           language_prefill=language,
+                           category_prefill=category,
+                           description_prefill=post_["description"],
+                           languages=filter.languages(),
+                           categories=filter.categories(),
+                           )
 
 
 @app.post("/posts/update/<int:post_id>")
@@ -190,8 +209,10 @@ def update_post(post_id: int):
     if post_["username"] != session["username"]:
         abort(403)
     new_title = req.form["title"]
+    new_language = filter.get_language_id(req.form["language"])
+    new_category = filter.get_category_id(req.form["category"])
     new_description = req.form["description"]
-    post.update(post_id, new_title, new_description)
+    post.update(post_id, new_title, new_language, new_category, new_description)
     return redirect(f"/posts/{post_id}")
 
 

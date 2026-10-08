@@ -1,13 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}New Challenge{% endblock %}
+{% block title %}{% if modify %}Modify{% else %}New{% endif %}Challenge{% endblock %}
 
 {% block header %}
-  <h1>New Challenge</h1>
+  <h1>{% if modify %}Modify{% else %}New{% endif %} Challenge</h1>
 {% endblock %}
 
 {% block content %}
-  <form action="/posts/create" method="POST">
+  {% if modify %}
+    <form action="/posts/update/{{ post_id }}" method="POST">
+  {% else %}
+    <form action="/posts/create" method="POST">
+  {% endif %}
     Title: <input type="text" name="title" maxlength=128 value="{{ title_prefill }}" />
     Language: <select name="language">
       {% if not language_prefill %}

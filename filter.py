@@ -10,6 +10,14 @@ def languages(conn: sqlite3.Connection) -> list[str]:
 
 
 @db_access
+def get_language(conn: sqlite3.Connection, id: int) -> str | None:
+    row = conn.execute("SELECT language_name FROM LanguageFilters WHERE id = ?", (id,)).fetchone()
+    if row is None:
+        return None
+    return row["language_name"]
+
+
+@db_access
 def get_language_id(conn: sqlite3.Connection, language: str) -> int | None:
     row = conn.execute("SELECT id FROM LanguageFilters WHERE language_name = ?", (language,)).fetchone()
     if row is None:
@@ -23,6 +31,14 @@ def get_language_id(conn: sqlite3.Connection, language: str) -> int | None:
 def categories(conn: sqlite3.Connection) -> list[str]:
     rows = conn.execute("SELECT category_name FROM CategoryFilters").fetchall()
     return [row["category_name"] for row in rows]
+
+
+@db_access
+def get_category(conn: sqlite3.Connection, id: int) -> str | None:
+    row = conn.execute("SELECT category_name FROM CategoryFilters WHERE id = ?", (id,)).fetchone()
+    if row is None:
+        return None
+    return row["category_name"]
 
 
 @db_access
