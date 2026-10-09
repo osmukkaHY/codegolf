@@ -42,9 +42,9 @@ def get_by_user_id(conn: sqlite3.Connection, user_id: int) -> list[dict]:
 
 @db_access
 def get_n_with_offset(conn: sqlite3.Connection, count: int, offset: int) -> dict:
-    rows = conn.execute("""SELECT Posts.id, poster_id, title, description, username
-                              FROM Posts LEFT JOIN Users ON Posts.poster_id = Users.id
-                              ORDER BY Posts.id DESC
+    rows = conn.execute("""SELECT id, poster_id, title, description
+                              FROM Posts
+                              ORDER BY id DESC
                               LIMIT ?
                               OFFSET ?
                            """, (count, offset)).fetchall()

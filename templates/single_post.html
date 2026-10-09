@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-  <h2>By: {{ post.username }}</h2>
+  <h2>By: <a href="/users/{{ post.poster_id }}">{{ post.username }}</a></h2>
   <p>
     {{ post.description }}
   </p>
