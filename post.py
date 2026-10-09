@@ -41,13 +41,13 @@ def get_by_user_id(conn: sqlite3.Connection, user_id: int) -> list[dict]:
 
 
 @db_access
-def get_n(conn: sqlite3.Connection, count: int) -> dict:
+def get_n_with_offset(conn: sqlite3.Connection, count: int, offset: int) -> dict:
     rows = conn.execute("""SELECT Posts.id, poster_id, title, description, username
-                              FROM Posts, Users
-                              WHERE Posts.poster_id = Users.id
+                              FROM Posts LEFT JOIN Users ON Posts.poster_id = Users.id
                               ORDER BY Posts.id DESC
                               LIMIT ?
-                           """, (count,))
+                              OFFSET ?
+                           """, (count, offset)).fetchall()
     return rows
 
 
@@ -82,3 +82,8 @@ def search(conn: sqlite3.Connection, search_term: str, language_filter: str, cat
                         """, (f"%{search_term}%", language_filter, category_filter)).fetchall()
     return rows
 
+
+@db_access
+def count(conn: sqlite3.Connection) -> int:
+    row = conn.execute("SELECT COUNT(*) AS row_count FROM Posts").fetchone()
+    return row["row_count"]

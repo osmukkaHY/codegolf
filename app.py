@@ -41,11 +41,21 @@ def check_csrf(f):
 
 
 @app.get("/")
-def index():
+@app.route("/<int:page>")
+def index(page=1):
     if not session.get("username"):
         return redirect("/login")
-    posts = post.get_n(4)
-    return render_template("index.html", posts=posts)
+    page = max(1, page)
+    page_size = 10
+    offset = (page-1)*page_size
+    print(page_size, offset)
+    posts = post.get_n_with_offset(page_size, offset)
+    print(len(posts))
+    return render_template("index.html",
+                           posts=posts,
+                           page=page,
+                           first_page=page==1,
+                           last_page=post.count()<=page_size*page)
 
 
 @app.get("/signup")

@@ -16,4 +16,13 @@
     <hr />
   </p>
   {% endfor %}
+  <p>
+    {% if not first_page %}
+      <a href="/{{ page - 1 }}">{{ page - 1 }}</a>
+    {% endif %}
+    Page {{ page }}
+    {% if not last_page %}
+      <a href="/{{ page + 1 }}">{{ page + 1 }}</a>
+    {% endif %}
+  </p>
 {% endblock %}
