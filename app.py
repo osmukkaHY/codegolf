@@ -127,7 +127,7 @@ def show_post(post_id: int):
 @login_required
 def posts_create():
     return render_template("post_form.html",
-                           modify=True,
+                           modify=False,
                            title_prefill="",
                            language_prefill="",
                            category_prefill="",

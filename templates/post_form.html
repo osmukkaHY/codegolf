@@ -1,9 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}{% if modify %}Modify{% else %}New{% endif %}Challenge{% endblock %}
+{% block title %}
+  {% if modify %}
+    Modify
+  {% else %}
+    New
+  {% endif %}
+    Challenge
+{% endblock %}
 
 {% block header %}
-  <h1>{% if modify %}Modify{% else %}New{% endif %} Challenge</h1>
+  <h1>
+    {% if modify %}
+      Modify
+    {% else %}
+      New
+    {% endif %}
+    Challenge
+  </h1>
 {% endblock %}
 
 {% block content %}
