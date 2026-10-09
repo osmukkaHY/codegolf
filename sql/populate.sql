@@ -7,6 +7,14 @@ INSERT INTO Posts (poster_id, title, language_name, category_name, description) 
 INSERT INTO Posts (poster_id, title, language_name, category_name, description) VALUES (2, 'Optimized DOOM', 2, 2, 'Recreate doom in C++ in as few expressions as possible. Not lines, expressions.');
 INSERT INTO Posts (poster_id, title, language_name, category_name, description) VALUES (3, 'The Worlds most important problem', 3, 3, 'Find out who asked.');
 INSERT INTO Posts (poster_id, title, language_name, category_name, description) VALUES (4, 'Basic input', 4, 4, 'Get input from user without using the stdlib IO-monad.');
+INSERT INTO Posts (poster_id, title, language_name, category_name, description) VALUES (1, 'Implement a hw-level O(n) solution to the traveling salesman problem', 1, 1, 'Good luck');
+INSERT INTO Posts (poster_id, title, language_name, category_name, description) VALUES (2, 'Optimized DOOM', 2, 2, 'Recreate doom in C++ in as few expressions as possible. Not lines, expressions.');
+INSERT INTO Posts (poster_id, title, language_name, category_name, description) VALUES (3, 'The Worlds most important problem', 3, 3, 'Find out who asked.');
+INSERT INTO Posts (poster_id, title, language_name, category_name, description) VALUES (4, 'Basic input', 4, 4, 'Get input from user without using the stdlib IO-monad.');
+INSERT INTO Posts (poster_id, title, language_name, category_name, description) VALUES (1, 'Implement a hw-level O(n) solution to the traveling salesman problem', 1, 1, 'Good luck');
+INSERT INTO Posts (poster_id, title, language_name, category_name, description) VALUES (2, 'Optimized DOOM', 2, 2, 'Recreate doom in C++ in as few expressions as possible. Not lines, expressions.');
+INSERT INTO Posts (poster_id, title, language_name, category_name, description) VALUES (3, 'The Worlds most important problem', 3, 3, 'Find out who asked.');
+INSERT INTO Posts (poster_id, title, language_name, category_name, description) VALUES (4, 'Basic input', 4, 4, 'Get input from user without using the stdlib IO-monad.');
 
 INSERT INTO LanguageFilters (language_name) VALUES ("C");
 INSERT INTO LanguageFilters (language_name) VALUES ("C++");
