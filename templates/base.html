@@ -1,9 +1,15 @@
 <!DOCTYPE HTML>
 
+<link rel="stylesheet" href="/static/main.css" />
+
 <title>{% block title %}{% endblock %}</title>
 
+<div class="header">
+  <h1><a href="/">Codegolf</a></h1>
+</div>
+
+
 <nav>
-  <h4><a href="/">Codegolf</a></h4>
   <ul>
     {% if session.username %}
       <li><a href="/users/{{ session.user_id }}">Your Profile</a></li>
@@ -16,6 +22,7 @@
     {% endif %}
   </ul>
 </nav>
+
 <section class="content">
   <header>
     {% block header %}{% endblock %}

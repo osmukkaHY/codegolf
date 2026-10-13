@@ -1,0 +1,28 @@
+.header a {
+    color: black;
+    text-decoration: none;
+}
+
+body {
+    margin: auto;
+    max-width: 50em;
+}
+
+nav {
+    text-align: center;
+}
+
+nav li {
+    display: inline-block;
+    padding: 0 1em;
+    margin: 0;
+}
+
+nav li:not(:last-of-type) {
+    border-right: 1px solid black;
+}
+
+nav li a {
+    color: black;
+    text-decoration: none;
+}
