@@ -16,15 +16,7 @@ INSERT INTO Posts (poster_id, title, language_name, category_name, description) 
 INSERT INTO Posts (poster_id, title, language_name, category_name, description) VALUES (3, 'The Worlds most important problem', 3, 3, 'Find out who asked.');
 INSERT INTO Posts (poster_id, title, language_name, category_name, description) VALUES (4, 'Basic input', 4, 4, 'Get input from user without using the stdlib IO-monad.');
 
-INSERT INTO LanguageFilters (language_name) VALUES ("C");
-INSERT INTO LanguageFilters (language_name) VALUES ("C++");
-INSERT INTO LanguageFilters (language_name) VALUES ("Python");
-INSERT INTO LanguageFilters (language_name) VALUES ("Haskell");
 
-INSERT INTO CategoryFilters (category_name) VALUES ("embedded");
-INSERT INTO CategoryFilters (category_name) VALUES ("gamedev");
-INSERT INTO CategoryFilters (category_name) VALUES ("algorithms");
-INSERT INTO CategoryFilters (category_name) VALUES ("monads");
 
 INSERT INTO Comments (commenter_id, post_id, content) VALUES (2, 1, 'Aint no way ts even possible son im crine :crying::peacesign:');
 INSERT INTO Comments (commenter_id, post_id, content) VALUES (3, 2, '#include "d_main.h"\nint main(){\n    D_DoomMain();}');

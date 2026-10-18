@@ -29,3 +29,17 @@ CREATE TABLE CategoryFilters (
     id INTEGER PRIMARY KEY,
     category_name TEXT
 );
+
+INSERT INTO LanguageFilters (language_name) VALUES ("C");
+INSERT INTO LanguageFilters (language_name) VALUES ("C++");
+INSERT INTO LanguageFilters (language_name) VALUES ("Python");
+INSERT INTO LanguageFilters (language_name) VALUES ("Haskell");
+INSERT INTO LanguageFilters (language_name) VALUES ("Rust");
+INSERT INTO LanguageFilters (language_name) VALUES ("JavaScript");
+
+INSERT INTO CategoryFilters (category_name) VALUES ("embedded");
+INSERT INTO CategoryFilters (category_name) VALUES ("gamedev");
+INSERT INTO CategoryFilters (category_name) VALUES ("algorithms");
+INSERT INTO CategoryFilters (category_name) VALUES ("monads");
+INSERT INTO CategoryFilters (category_name) VALUES ("websites");
+INSERT INTO CategoryFilters (category_name) VALUES ("networking");
