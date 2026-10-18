@@ -87,3 +87,8 @@ def search(conn: sqlite3.Connection, search_term: str, language_filter: str, cat
 def count(conn: sqlite3.Connection) -> int:
     row = conn.execute("SELECT COUNT(*) AS row_count FROM Posts").fetchone()
     return row["row_count"]
+
+@db_access
+def count_by_user(conn: sqlite3.Connection, user_id: int) -> int:
+    row = conn.execute("SELECT COUNT(*) AS row_count FROM Posts WHERE poster_id = ?", (user_id,)).fetchone()
+    return row["row_count"]

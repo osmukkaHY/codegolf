@@ -20,3 +20,7 @@ def get_by_post(conn: sqlite3.Connection, post_id: int) -> list[dict]:
     return rows
 
   
+@db_access
+def count_by_user(conn: sqlite3.Connection, user_id: int) -> int:
+    row = conn.execute("SELECT COUNT(*) AS row_count FROM Comments WHERE commenter_id = ?", (user_id,)).fetchone()
+    return row["row_count"]

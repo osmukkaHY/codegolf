@@ -245,14 +245,18 @@ def profile_get(user_id: int):
     u = user.get_by_id(user_id)
 
     categorized_posts = {}
-    total_posts = 0
+    total_posts = post.count_by_user(user_id)
+    total_comments = comment.count_by_user(user_id)
     for p in post.get_by_user_id(user_id):
-        total_posts += 1
         if p["language_name"] not in categorized_posts:
             categorized_posts[p["language_name"]] = []
         categorized_posts[p["language_name"]].append(p)
 
-    return render_template("profile.html", user=u, posts=categorized_posts, posts_count=total_posts)
+    return render_template("profile.html",
+                           user=u,
+                           posts=categorized_posts,
+                           posts_count=total_posts,
+                           comments_count=total_comments)
 
 
 @app.post("/attempts/create")

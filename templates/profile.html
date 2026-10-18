@@ -9,6 +9,7 @@
 
 {% block content %}
   <h2>Total Posts: {{ posts_count }}</h2>
+  <h2>Total Comments: {{ comments_count }}</h2>
   {% for language, post_list in posts.items() %}
     <h2>Posts in {{ language }}</h2>
     <hr />
