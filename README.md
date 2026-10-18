@@ -3,9 +3,9 @@
 * The user can post, edit and delete challenges.
 * The user can see posted challenges.
 * The user can search for challenges in a specific programming language and by categories.
-* In the profile page users can see their posted challenges and how many challenges they have posted in total and per programming language.
+* In the profile page users can see their posted challenges per programming language and how many challenges and attempts they have posted in total.
 * At creation challenges are classified by language and category e.g. string manipulation, bit manipulation, mathematical algorithms (e.g. calculating pi) by the poster.
-* A user can submit their golf attempt to a challenge as a comment. A challenge shows these attempts, count of characters in the shortest attempt and the average amount of characters.
+* A user can submit their golf attempt to a challenge as a comment. A challenge shows these attempts.
 
 The main data point is a challenge and the secondary data point is the attempt at golfing one.
 
