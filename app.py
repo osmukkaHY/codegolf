@@ -181,7 +181,7 @@ def create_post():
     return redirect("/")
 
 
-@app.get("/posts/delete/<int:post_id>")
+@app.post("/posts/delete/<int:post_id>")
 @login_required
 def delete_post(post_id: int):
     post_ = post.get_by_id(post_id)

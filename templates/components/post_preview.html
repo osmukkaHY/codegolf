@@ -3,8 +3,10 @@
     <h3>{{ title }}</h3>
     <a href="/posts/{{ id }}">Show</a> <br />
     {% if poster_id == session.user_id %}
-    <a href="/posts/delete/{{ id }}">Delete</a> | 
     <a href="/posts/modify/{{ id }}">Modify</a>
+    <form action="/posts/delete/{{ id }}" method="POST">
+      <input type="submit" value="Delete" />
+    </form>
     {% endif %}
   </div>
 {% endmacro %}
